@@ -1,0 +1,18 @@
+<h1>Add member</h1>
+
+<form action="addrecord/" method="post">
+{% csrf_token %}
+Name:<br>
+<input name="first">
+<br><br>
+Level:<br>
+<input name="level">
+<br><br>
+Mood:<br>
+<input name="mood">
+<br><br>
+Reason:<br>
+<input name="reason">
+<br><br>
+<input type="submit" value="Submit">
+</form>
