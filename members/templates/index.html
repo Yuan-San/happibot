@@ -80,7 +80,6 @@ div.content {
   }
 }
     </style>
-
 <div class="sidebar">
   <a style="text-align: center;background-color: #6AAEED;color: #fff;" class="profile"><i class="fa-solid fa-circle-user fa-2xl" style="margin: 20px;"></i><br>{{ user.username }}</a>
   <a href="/"><i class="fa-solid fa-house"></i> Home <span style="float:right;"><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a>
@@ -89,7 +88,7 @@ div.content {
   <a href="evaluate/"><i class="fa-solid fa-triangle-exclamation"></i> Evaluate</a>
   <a href="contact/" style="border-bottom: solid;border-width: 1px;"><i class="fa-solid fa-address-book"></i> Contact us</a>
   <a href="settings/"><i class="fa-solid fa-gear"></i> Settings</a>
-  <a href="logout/"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
+  <a href="{%url 'logout'%}"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
 </div>
 <div class="content">
 <div>
@@ -97,14 +96,23 @@ div.content {
   <h4 style="padding-top: 10px;padding-left: 25px;padding-bottom: 5px; color: #FFF;display: inline-block;">Today's Total Input</h4><h6 style="display:inline-block;margin-left: 10px;color: rgb(231, 231, 231);"> 23 / 11 / 20xx</h6>
   <div style="background-color: #fff; padding: 10px;">
   <table class="table table-hover">
+    {%for x in total%}
     <tr>
       <th style="font-weight: bold;">All Students Detected:</th>
-      <th style="font-weight: bold;">0</th>
+      <th style="font-weight: bold;">{{x.total}}</th>
     </tr>
+    {%endfor%}
+    {%for x in happy%}
     <tr>
-      <td>Happy</td>
-      <td>0</td>
+      {%if x.mood == "" %}
+      <td>Blank</td>
+      {%else%}
+      <td>{{x.mood}}</td>
+      {%endif%}
+      <td>{{x.moodcount}}</td>
     </tr>
+    {%endfor%}
+    {%comment%}
     <tr>
       <td>Sad</td>
       <td>0</td>
@@ -129,6 +137,7 @@ div.content {
       <td>Anger</td>
       <td>0</td>
     </tr>
+    {%endcomment%}
   </table></div>
 </div>
 <div style="border: solid;border-width:1px;border-color: gray;margin-right:30px;margin-top:30px;background-color:#5a7494;width: 39%;border-radius:5px;float: right;">
@@ -182,12 +191,12 @@ div.content {
 </tr>
 {% for x in mymembers %}
 <tr>
-    <td>{{ x.id }}</td>
+    <td>{{ forloop.counter }}</td>
     <td>{{ x.name }}</td>
     <td>{{ x.level }}</td>
     <td>{{ x.mood }}</td>
     <td>{{ x.reason }}</td>
-    <td>    <a href="update/{{ x.id }}" style="color: gray;">Update</a></td>
+    <td><a href="delete/{{x.id}}">Delete</a>   <a href="update/{{ x.id }}" style="color: gray;">Update</a></td>
     <script>
         function confirmation() {
             confirm("Are you sure?");

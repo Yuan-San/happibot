@@ -6,24 +6,46 @@
 <style>
   body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Ubuntu', sans-serif;
   }
   
-  .topnav {
+  .topnav2 {
     overflow: hidden;
   }
   
-  .topnav a {
+  .topnav2 a {
     float: left;
     display: block;
     color: black;
     text-align: center;
-    padding: 14px 16px;
+    margin: 14px 16px;
+    padding: 0px 0px 10px;
     text-decoration: none;
     font-size: 17px;
   }
   
-  .topnav .icon {
+  .hoverbottom a {
+    border-color: #ffac04;
+  }
+
+  .hoverbottom a:hover{
+    border-bottom: solid;
+    border-width: 1px;
+    border-radius: 60%;
+    transition: 0.5s;
+    border-color: #ffac04;
+  }
+
+  @keyframes border_anim {
+	0%{
+		width: 0%;
+	}
+	100%{
+		width: 100%;
+	}
+}
+  
+  .topnav2 .icon {
     display: none;
   }
   
@@ -48,20 +70,70 @@
       text-align: left;
     }
   }
+
+  .profile1 {
+    padding-right: 20px;
+    background-color: #6aaeed;
+    height: 23px;
+    padding-top: 6px;
+  }
+
+  .profile1 a{
+    padding: 12px 10px 5px 15px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+  }
+  .content {
+    background-image: linear-gradient(to top, #0066FF, #FFF);
+    padding: 4%;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn {
+    display: block;
+    width: 160px;
+    height: 33px;
+    background: #fff;
+    padding: 12px;
+    text-align: center;
+    border-radius: 14px;
+    color: black;
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 20px;
+  }
   </style>
-<div>
-  <a></a>
-</div>
-<div class="topnav" style="padding: 5px;padding-left: 20px;padding-right: 20px;" id="myTopnav">
-  <a><img src="{% static 'img/logo.png' %}" width="109.5" height="30.525"></a>
+<div class="profile1">
   <div style="float: right;">
-  <a href="#home" class="active">Home</a>
-  <a href="#contact">Contact</a>
+  {% if user.is_authenticated %}
+  <a><i class="fa-solid fa-user" style="margin-right:5px;"></i> Hello, {{user.username}}.</a>
+  <A href="members/" style="border-left: solid;border-width:1px;border-color: #276eaf;border-radius: 3px;"><i class="fa-solid fa-table"></i> Go to panel</A>
+  <a href="{% url 'logout' %}" style="margin-right: 25px;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>  
+  {% else %}
+  <a><i class="fa-solid fa-user" style="margin-right:5px;"></i> Not Logged in</a>
+  <a href="{% url 'login' %}" style="margin-right: 25px;border-left: solid;border-right:solid;border-width:1px;border-color: #276eaf;border-radius: 0px;"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+  {% endif %}
+</div>
+</div>
+<div>
+<div class="topnav2" style="padding: 5px;padding-left: 70px;padding-right: 70px;font-family: 'Inter', sans-serif;" id="myTopnav">
+  <a><img src="{% static 'img/logo.png' %}" width="109.5" height="30.525"></a>
+  <div style="float: right;" class="hoverbottom">
+  <a href="/" class="active">Home</a>
+  <a href="#features">Features</a>
   <a href="#about">About</a>
-{% if user.is_authenticated %}
-  <a href="{% url 'logout' %}">Log Out</a></div>
-{% else %}
-  <a href="{% url 'login' %}">Log In</a>
-{% endif %}
+  <a href="#contact">Contact Us</a>
+  <a href="buy/" style="color: #ffac04;">Buy Now</a>
+</div></div>
+<div class="content">
+  <img src="{% static 'img/logo.png' %}" width="788.4" height="219.78">
+  <p style="font-size: 56;font-weight: bold;color: #fff;">"Everybody Deserves <br>to be Happy."</p>
+  {%if user.is_authenticated%}
+  <a class="btn" href="members/">Go to panel</a>
+  {%else%}
+  <a class="btn" href="login/">Login</a>
+  {%endif%}
+</div>
 </div>
 {% endblock %}
