@@ -8,11 +8,7 @@
   padding: 0;
   width: 200px;
   background-color: #f1f1f1;
-<<<<<<< HEAD
-  position: absolute;
-=======
   position: fixed;
->>>>>>> 8b6c43c885a8b6ca13a22dcfcf290df86ebf6b9b
   height: 100%;
   overflow: auto;
 }
@@ -61,18 +57,14 @@
   }
 }
 </style>
+
 <div class="sidebar">
     <a style="text-align: center;background-color: #6AAEED;color: #fff;" class="profile"><i class="fa-solid fa-circle-user fa-2xl" style="margin: 20px;"></i><br>{{ user.username }}</a>
     <a href="/"><i class="fa-solid fa-house"></i> Home <span style="float:right;"><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a>
-    <a href="/members/" ><i class="fa-solid fa-book"></i> Logs</a>
-    <a href="/members/student/" class="active"><i class="fa-solid fa-user-group"></i> Students</a>
-<<<<<<< HEAD
+    <a href="/members/" class="active"><i class="fa-solid fa-book"></i> Logs</a>
+    <a href="/members/student/"><i class="fa-solid fa-user-group"></i> Students</a>
     <a style="border-bottom: solid;border-width: 2px;width: 75%;height: 1px;padding: 0;position: relative;text-align: center;margin: auto;"></a>
-    <a href="/contact/"><i class="fa-solid fa-address-book"></i> Report Error</a>
-=======
-    <a href="/members/evaluate/"><i class="fa-solid fa-triangle-exclamation"></i> Evaluate</a>
-    <a href="/contact/" style="border-bottom: solid;border-width: 1px;"><i class="fa-solid fa-address-book"></i> Report Error</a>
->>>>>>> 8b6c43c885a8b6ca13a22dcfcf290df86ebf6b9b
+    <a href="contact/"><i class="fa-solid fa-address-book"></i> Report Error</a>
     <a href="settings/"><i class="fa-solid fa-gear"></i> Settings</a>
     <a href="{%url 'logout'%}"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
   </div>

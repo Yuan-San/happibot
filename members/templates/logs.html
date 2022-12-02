@@ -1,0 +1,75 @@
+{%load static%}
+<!DOCTYPE html>
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="https://kit.fontawesome.com/5ad3573202.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    div.content {
+      margin-left: 200px;
+      padding: 1px 16px;
+      height: 1000px;
+    }
+    body {
+        margin: 0;
+    }
+    </style>
+{%include 'includeIndex.html'%}
+<div class="content">
+<div style="border-color:gray;border-width: 1px;border-radius: 5px;border-style: solid;padding: 0px;margin: 30px;background-color: #3F97FF;position: relative;"><h4 style="padding-top: 10px;padding-left: 25px;padding-bottom: 5px; color: #FFF;">All Logs</h4><h6 style="position: absolute;right: 40px;top: 15px;color: white;"><a href="" style="color: white;">All Data -></a></h6>
+    <div style="background-color: #FFF">
+      <div style="padding: 10px;">
+        <input type="text" id="searchInput" onkeyup="searchFunc()" placeholder="Search for..." style="border-radius: 0px;width: 30%;" class="form-control">
+        <script>
+          function searchFunc() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("logsTable");
+            tr = table.getElementsByTagName("tr");
+          
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+              td = tr[i].getElementsByTagName("td")[1];
+              if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+                } else {
+                  tr[i].style.display = "none";
+                }
+              }
+            }
+          }
+          </script>
+      </div>
+    <table border="1" class="table table-hover" id="logsTable">
+    <tr>
+        <th>no. </th>
+        <th>Name</th>
+        <th>Level</th>
+        <th>Mood</th>
+        <th>Reason</th>
+        <th>Actions</th>
+    </tr>
+    {% for x in mymembers %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ x.name }}</td>
+        <td>{{ x.level }}</td>
+        <td>{{ x.mood }}</td>
+        <td>{{ x.reason }}</td>
+        <td><a href="delete/{{x.id}}">Delete</a>   <a href="update/{{ x.id }}" style="color: gray;">Update</a></td>
+        <script>
+            function confirmation() {
+                confirm("Are you sure?");
+            }
+        </script>
+    </tr>
+    {% endfor %}
+    </table>
+    <p>
+        <a href="add/" class="btn btn-primary btn-sm" style="margin: 5px;position: absolute;right: 0px;">Add logs</a>
+        </p>
+    </div></div></div>

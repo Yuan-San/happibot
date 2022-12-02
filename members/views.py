@@ -27,6 +27,20 @@ def index(request):
     'disgust': disgust,
     'anger': anger"""
   return HttpResponse(template.render(context, request))
+
+def logs(request):
+  mymembers = Members.objects.all().values()
+  template = loader.get_template('logs.html')
+  context = {
+    'mymembers': mymembers,
+  }
+  """'sad': sad,
+    'neutral': neutral,
+    'surprised': surprised,
+    'scared': scared,
+    'disgust': disgust,
+    'anger': anger"""
+  return HttpResponse(template.render(context, request))
   
 def add(request):
   template = loader.get_template('add.html')
