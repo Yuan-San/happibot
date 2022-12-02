@@ -93,16 +93,6 @@ div.content {
 </div>
 {%endcomment%}
 {%include 'includeIndex.html'%}
-<div class="sidebar">
-  <a style="text-align: center;background-color: #6AAEED;color: #fff;" class="profile"><i class="fa-solid fa-circle-user fa-2xl" style="margin: 20px;"></i><br>{{ user.username }}</a>
-  <a href="/"><i class="fa-solid fa-house"></i> Home <span style="float:right;"><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a>
-  <a href="logs/" class="active"><i class="fa-solid fa-book"></i> Logs</a>
-  <a href="student/"><i class="fa-solid fa-user-group"></i> Students</a>
-  <a href="evaluate/"><i class="fa-solid fa-triangle-exclamation"></i> Evaluate</a>
-  <a href="contact/" style="border-bottom: solid;border-width: 1px;"><i class="fa-solid fa-address-book"></i> Contact us</a>
-  <a href="settings/"><i class="fa-solid fa-gear"></i> Settings</a>
-  <a href="{%url 'logout'%}"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
-</div>
 <div class="content">
 <div>
 <div style="border: solid;border-width:1px;border-color: gray;margin-left:30px;margin-top:30px;background-color:#3F97FF;width: 55%;border-radius:5px;display: inline-block;">
@@ -237,7 +227,7 @@ div.content {
       }
       </script>
   </div>
-<table border="1" class="table table-hover">
+<table border="1" class="table table-hover" id="logsTable">
 <tr>
     <th>no. </th>
     <th>Name</th>

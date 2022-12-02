@@ -2,7 +2,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import Members
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request):
   mymembers = Members.objects.all().values()
   happy = Members.objects.raw('SELECT 1 id, COUNT(mood) AS moodcount, mood FROM members_members GROUP BY mood ORDER BY moodcount desc;')
@@ -28,24 +30,30 @@ def index(request):
     'anger': anger"""
   return HttpResponse(template.render(context, request))
 
+@login_required
 def logs(request):
   mymembers = Members.objects.all().values()
   template = loader.get_template('logs.html')
   context = {
     'mymembers': mymembers,
   }
-  """'sad': sad,
-    'neutral': neutral,
-    'surprised': surprised,
-    'scared': scared,
-    'disgust': disgust,
-    'anger': anger"""
   return HttpResponse(template.render(context, request))
   
+@login_required
+def contact(request):
+  mymembers = Members.objects.all().values()
+  template = loader.get_template('reportissue.html')
+  context = {
+    'mymembers': mymembers,
+  }
+  return HttpResponse(template.render(context, request))
+
+@login_required
 def add(request):
   template = loader.get_template('add.html')
   return HttpResponse(template.render({}, request))
 
+@login_required
 def student(request):
   mymembers = Members.objects.all().values()
   studentcount = Members.objects.raw('SELECT 1 id, name, COUNT(name) AS count, level, mood, reason FROM members_members GROUP BY name ORDER BY name asc;')
@@ -55,7 +63,8 @@ def student(request):
     'studentcount': studentcount
   }
   return HttpResponse(template.render(context, request))
-  
+
+@login_required
 def addrecord(request):
     first = request.POST['first']
     level = request.POST['level']
@@ -65,6 +74,7 @@ def addrecord(request):
     member.save()
     return HttpResponseRedirect(reverse('index'))
 
+@login_required
 def deletemember(request, name):
     membername = request.session.get('membername')
     logs = Members.objects.raw('SELECT id, name, mood, reason FROM members_members WHERE name = %s',[name])
@@ -78,6 +88,7 @@ def deletemember(request, name):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def memberdeleterequest(request, id):
     membername = request.session.get('membername')
     member = Members.objects.get(id=id)
@@ -85,11 +96,13 @@ def memberdeleterequest(request, id):
     url = reverse('deletemember', kwargs={'name': membername})
     return HttpResponseRedirect(url)
 
+@login_required
 def delete(request, id):
   member = Members.objects.get(id=id)
   member.delete()
   return HttpResponseRedirect(reverse('index'))
-  
+
+@login_required
 def update(request, id):
   mymember = Members.objects.get(id=id)
   template = loader.get_template('update.html')
@@ -98,6 +111,7 @@ def update(request, id):
   }
   return HttpResponse(template.render(context, request))
 
+@login_required
 def updaterecord(request, id):
   first = request.POST['first']
   level = request.POST['level']
